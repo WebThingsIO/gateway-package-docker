@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#set -x
+
+IMAGE=dhylands/gateway-package-builder:package-builder
+
+USER_IDS="-e OWRT_UID=$( id -u ) -e OWRT_GID=$( id -g )"
+
+docker run -i -t --rm \
+    -v ${PWD}:/build \
+    ${USER_IDS} \
+    ${IMAGE} "$@"
+
+################################################################################
+#
+#   This image is not intended to be run manually.
+#
+#   To install the owrt helper, run the following commands:
+#
+#       docker run dhylands/gateway-package-builder:package-builder > owrt
+#       chmod +x owrt
+#
+#   You may then wish to move owrt to somewhere in your path.
+#
+################################################################################
